@@ -30,7 +30,8 @@ export function isValidOIDCToken(token: JWTToken, configuredAuthTypes: AmplifyAp
     .filter(authType => authType.authenticationType === AmplifyAppSyncSimulatorAuthenticationType.OPENID_CONNECT)
     .map((auth: AmplifyAppSyncAuthenticationProviderOIDCConfig) =>
       auth.openIDConnectConfig.Issuer && auth.openIDConnectConfig.Issuer.endsWith('/')
-        ? auth.openIDConnectConfig.Issuer.substring(0, auth.openIDConnectConfig.Issuer.length - 1)
+         // Removed the substring method because it was causing an issue with running the serverless-appsync-simulator by stripping the trailing slash
+        ? auth.openIDConnectConfig.Issuer//.substring(0, auth.openIDConnectConfig.Issuer.length - 1)
         : auth.openIDConnectConfig.Issuer,
     );
 
